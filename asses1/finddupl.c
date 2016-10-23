@@ -33,11 +33,13 @@ int main(int argc, char *argv[]) {
 	ml_verbose = varg;
 		
 	ml = ml_create();
+
 	while ((mep = me_get(stdin)) != NULL) {
 		meq = ml_lookup(ml, mep);
-		if (meq == NULL)
+		if (meq == NULL){
 			(void) ml_add(&ml, mep);
-		else {
+			fprintf(stderr,"mlist: creating fucking list\n");
+		}else {
 			printf("Potential duplicate\n");
 			printf("===================\n");
 			me_print(mep, stdout);

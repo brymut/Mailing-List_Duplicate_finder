@@ -1,8 +1,12 @@
 /**
-@author Bryan Mutai Student ID : 2131791
+@author Bryan Mutai
+
+
+
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "mlist.h"
 
 #define HASHSIZE 20;
@@ -10,6 +14,7 @@
 typedef struct mlistnode {
 	struct mlistnode *next;
 	MEntry *entry;
+	int initiated;
 } bucket;
 
 struct mlist {
@@ -19,6 +24,9 @@ struct mlist {
 
 int ml_verbose=0;
 int size = HASHSIZE;
+
+
+MList **mlpoint;
 
 
 MList *ml_create(void) {
@@ -35,41 +43,117 @@ MList *ml_create(void) {
 		fprintf(stderr,"mlist: creating mailing list\n");
 
 
-
+	/** allocate space for mlist */
 	if( (ml = (MList *) malloc(sizeof(MList))) == NULL){
 		return ml;
 	}
 
-	if( (ml->hash = (bucket **) calloc(size,sizeof(bucket *)))!=NULL){
-		for(i=0;i<size;i++){
-			ml->hash[i] = (bucket *) malloc(sizeof(bucket));
-			ml->hash[i]->next = NULL;
-		}
-	}
 
-	/** Set hash pointer to bucket */
-	ml->size=size;	
 
 	/** Set mlist size */
 	ml->size = size;
 
+	/** allocate and initialise every bucket pointer */
+	if( (ml->hash = (bucket **) calloc(ml->size,sizeof(bucket *)))!=NULL){
+		for(i=0;i<size;i++){
+			/** initialise every bucket */
+			ml->hash[i] = (bucket *) malloc(sizeof(bucket));
+			ml->hash[i]->next = NULL;
+			ml->hash[i]->initiated = 0;
+		}
+	}
+	
+	
+
 	return ml;
 
 }
+
+void *reallocate(MList *ml){
+
+	if(ml_verbose)
+		fprintf(stderr,"mlist: resizing hash table\n");
+
+	/** loop counter */
+	int i,j;
+	int bucketcount;
+
+	/** create a new mailing list with x2 size */	
+	MList *new_ml;
+	size = (ml->size) * 2;
+	new_ml = ml_create();
+
+	/** cursor to loop through old data */
+	bucket *cursor;
+	bucket *new_cursor;
+	bucket *add_cursor;
+
+
+	/** rehash and link old data into new list */
+	unsigned long hashval;
+
+	for(i=0;i<ml->size;i++){
+		cursor = ml->hash[i];
+		while(cursor->next!=NULL){
+			/** loop through every single bucket of every single hashtab entry */
+
+			/** stores location of next node to assign space to */
+			new_cursor = cursor->next;
+			
+			/** set next value of cursor to NULL to indicate last node */
+			cursor->next = NULL;
+
+			hashval = me_hash(cursor->entry,size);
+			add_cursor = new_ml->hash[hashval];
+
+			/** loop through new mlist buckets to find where to put new entry */
+			bucketcount=0;
+			while(add_cursor->next!=NULL){
+				add_cursor = add_cursor->next;
+			}
+			
+			if( (new_ml->hash[hashval]->initiated == 0) ){
+				new_ml->hash[hashval] = cursor;
+				new_ml->hash[hashval]->initiated = 1;
+			} 
+		
+			else if( (new_ml->hash[hashval]->initiated == 1) ){
+				new_ml->hash[hashval]->next = cursor;
+				new_ml->hash[hashval]->initiated = 2;
+			} else
+				add_cursor->next = cursor;
+
+			/** update cursor to the next node */
+			cursor = new_cursor;
+		}
+		
+	}
+	free(ml->hash);
+	free(ml);
+
+	return new_ml;
+}
+
 
 /** adds MEntry to list,
 Returns 1 if successful
 Returns 0 if not successful
 */
 int ml_add(MList **ml, MEntry *me) {
+	/** counter to determine current bucket size */
+	int bucketsize = 0;
+
 	MList *m = *ml;
-	unsigned long hashval;
+	unsigned long hashval = 0;
 	int i;
 	bucket *buck,*bucket_new;
 
+	printf("%d\n",m->size);
+
 	/** check duplicates */
-	if (ml_lookup(m, me) != NULL)
+	if (ml_lookup(m, me) != NULL){
 		return 1;
+	}
 
 	/** allocate space for next entry */
 	if((bucket_new = (bucket *) malloc(sizeof(bucket)))==NULL)
@@ -88,11 +172,15 @@ int ml_add(MList **ml, MEntry *me) {
 	/** loop until free bucket */
 	while(buck->next!=NULL){
 		buck = buck->next;
+		bucketsize++;
 	}
 
 	/** set next to an empty bucket, and the entry to mentry */
 	buck->next = bucket_new;
 	buck->entry = me;
+	
+	if(bucketsize > m->size)
+		*ml = reallocate(m);
 
 	return 1;	
 
@@ -101,10 +189,8 @@ int ml_add(MList **ml, MEntry *me) {
 /** looks for entry in ml matching me
 if found, return pointer, if not return NULL */
 MEntry *ml_lookup(MList *ml, MEntry *me) {
-	unsigned long hashval;
+	unsigned long hashval = 0;
 	bucket *buck_cursor;
-
-	int tempsize = ml->size;
 
 	/** print statement if verbose */
 	if(ml_verbose)
@@ -126,15 +212,12 @@ MEntry *ml_lookup(MList *ml, MEntry *me) {
 			buck_cursor = buck_cursor->next;
 		}
 	}
+	
 
 	/** entry was not found, return NULL */
-
-	ml->size = tempsize;
 	return NULL;
 }
 
-
-//  ml_destroy - destroy the mailing list 
 void ml_destroy(MList *ml) {
 	int i;
 	bucket *to_delete; /** pointer to node to delete */
