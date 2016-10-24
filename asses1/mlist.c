@@ -1,8 +1,5 @@
 /**
 @author Bryan Mutai
-
-
-
 */
 
 #include <stdio.h>
@@ -112,12 +109,12 @@ void *reallocate(MList *ml){
 				add_cursor = add_cursor->next;
 			}
 			
-			if( (new_ml->hash[hashval]->initiated == 0) ){
+			if( new_ml->hash[hashval]->initiated == 0 ){
 				new_ml->hash[hashval] = cursor;
 				new_ml->hash[hashval]->initiated = 1;
 			} 
 		
-			else if( (new_ml->hash[hashval]->initiated == 1) ){
+			else if( new_ml->hash[hashval]->initiated == 1 ){
 				new_ml->hash[hashval]->next = cursor;
 				new_ml->hash[hashval]->initiated = 2;
 			} else
@@ -142,6 +139,7 @@ Returns 0 if not successful
 int ml_add(MList **ml, MEntry *me) {
 	/** counter to determine current bucket size */
 	int bucketsize = 0;
+
 
 	MList *m = *ml;
 	unsigned long hashval = 0;

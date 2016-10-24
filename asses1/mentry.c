@@ -145,7 +145,7 @@ int me_compare(MEntry *me1, MEntry *me2){
 
 
 	// if the surname, postcode and house number are the same return 0
-	if(( postcode_comp ==0 ) && ( surname_comp ==0 ) && (me1->house_number == me2->house_number))
+	if(( postcode_comp ==0 ) && ( surname_comp ==0 ) ) //&& (me1->house_number == me2->house_number))
 		return 0;
 	else
 		return -1;

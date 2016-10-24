@@ -30,16 +30,15 @@ int main(int argc, char *argv[]) {
 			}
 		}
 	}
+	FILE *fd = fopen("10k.txt","r");
 	ml_verbose = varg;
 		
 	ml = ml_create();
-
-	while ((mep = me_get(stdin)) != NULL) {
+	while ((mep = me_get(fd)) != NULL) {
 		meq = ml_lookup(ml, mep);
-		if (meq == NULL){
+		if (meq == NULL)
 			(void) ml_add(&ml, mep);
-			fprintf(stderr,"mlist: creating fucking list\n");
-		}else {
+		else {
 			printf("Potential duplicate\n");
 			printf("===================\n");
 			me_print(mep, stdout);
