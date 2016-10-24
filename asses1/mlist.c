@@ -71,7 +71,7 @@ void *reallocate(MList *ml){
 	if(ml_verbose)
 		fprintf(stderr,"mlist: resizing hash table\n");
 
-	/** loop counter */
+	/** loop counters */
 	int i,j;
 	int bucketcount;
 
@@ -146,7 +146,7 @@ int ml_add(MList **ml, MEntry *me) {
 	int i;
 	bucket *buck,*bucket_new;
 
-	printf("%d\n",m->size);
+	//printf("%d\n",m->size);
 
 	/** check duplicates */
 	if (ml_lookup(m, me) != NULL){
@@ -192,7 +192,7 @@ MEntry *ml_lookup(MList *ml, MEntry *me) {
 
 	/** print statement if verbose */
 	if(ml_verbose)
-		fprintf(stderr,"mlist: ml_lookup() entered\n");
+		fprintf(stderr," Message from mlist : Looking up from *ml_lookup(MList *ml, MEntry *me)\n");
 
 	/** calculate hashval of me */
 	hashval = me_hash(me,ml->size);

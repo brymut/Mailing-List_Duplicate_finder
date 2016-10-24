@@ -1,5 +1,5 @@
 aeauai, ieiouueoou
-9, aaeeeieaaouoiaeeeiooioiuoioouoaeeuuaeeou
+9, aaeeeiouoiaeeeiooioiuoioouoaeeuuaeeou
 I82 8OU
 aiaaio, eioiuoaeae
 4, aoieeueeiieaaueuiueoeooeaueaiaaouooaeuoi
@@ -19,6 +19,9 @@ O24 3EE
 ueoiei, auaeieauaa
 4, iuoiooaaoiuioieoiaoaaouaaoeeuiaeiueiuaea
 A90 2UO
+aeauai, ieiouueoou
+9, aaeeeiouoiaeeeiooioiuoioouoaeeuuaeeou
+I82 8OU
 uuuuou, ueiiieoiuu
 euuiaoaeeaioueoaieaiuuiiieueououaeoaieoe
 U96 1UA
@@ -141,6 +144,9 @@ ueeiau, ieueuiooua
 E24 6AO
 ooeaoo, uaeeaouauo
 8, ieoioaeiioiuueaaoouaiauouaeieaouaoeaieii
+O72 7AO
+ooeaoo, uaeeaouauo
+8, ieoioaoiuueaaoouaiauouaeieaouaoeaieii
 O72 7AO
 uoioue, oioeoeieao
 4, ieeoooiuuaeueoiauuueouaeoiuuueuoioeeaeao
