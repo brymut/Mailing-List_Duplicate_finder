@@ -1,5 +1,7 @@
 /**
-@author Bryan Mutai Student ID : 2131791
+@author Bryan Mutai 
+AP3 Exercise 1, Student ID: 2131791m
+This is my own work as defined in the Academic Ethics agreement I have signed.
 */
 #include <stdio.h>
 #include <string.h>
@@ -134,18 +136,17 @@ void me_print(MEntry *mail_entry, FILE *fd){
 
 
 
-/* me_compare compares two mail entries, returning <0, 0, >0 if
-* me1<me2, me1==me2, me1>me2
+/* me_compare compares two mail entries, returning 0 if they are equal, -1 if they are not equal
 */
 int me_compare(MEntry *me1, MEntry *me2){
 
-	// comparison of the surname and postcode entries
+	/** comparison of the surname and postcode entries */
 	int surname_comp = strcmp(me1->surname,me2->surname);
 	int postcode_comp = strcmp(me1->postcode,me2->postcode);
 
 
-	// if the surname, postcode and house number are the same return 0
-	if(( postcode_comp ==0 ) && ( surname_comp ==0 ) ) //&& (me1->house_number == me2->house_number))
+	/** if the surname, postcode and house number are the same return 0 */
+	if(( postcode_comp ==0 ) && ( surname_comp ==0 ) ) 
 		return 0;
 	else
 		return -1;

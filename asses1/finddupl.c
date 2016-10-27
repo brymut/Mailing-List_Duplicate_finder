@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
 			}
 		}
 	}
-	FILE *fd = fopen("10k.txt","r");
+	FILE *fd = fopen("S.txt","r");
 	ml_verbose = varg;
 		
 	ml = ml_create();
