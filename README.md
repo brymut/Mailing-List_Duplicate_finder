@@ -1,14 +1,14 @@
 # Duplicate finder for Mailing Lists implemented in C
 
 
-# 1 Requirement
+# 1. Requirement
 A mailing list is a collection of people’s names and addresses, used for bulk mailings. Mailing lists from
 different sources are often merged. A merged mailing list might contain duplicate entries, with only trivial
 differences, such as alternative forms of names, missing parts of addresses, etc. Duplicate entries result in
 excessive postage costs, and irritation for recipients of multiple copies of a single mailing. A program is
 required to report potential duplicate entries in a given mailing list.
 
-#2 Specification
+#2. Specification
 
 The program’s function is to report potential duplicate entries in a given mailing list. Two entries are to be
 treated as potential duplicates if they have identical surnames, post-codes, and house numbers; these
