@@ -16,9 +16,9 @@ comparisons are made in a case-insensitive way.
 A mailing list file is a text file in which each entry occupies three successive lines:
 
 
- full name
- address
- post-code
+- full name
+- address
+- post-code
 
 The full name consists of an individual’s surname, followed by a comma (‘,’), followed by an optional title,
 followed by one or more forenames. The address line consists of a house number, street name, and city; the
