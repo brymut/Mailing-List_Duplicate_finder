@@ -14,6 +14,8 @@ The program’s function is to report potential duplicate entries in a given mai
 treated as potential duplicates if they have identical surnames, post-codes, and house numbers; these
 comparisons are made in a case-insensitive way.
 A mailing list file is a text file in which each entry occupies three successive lines:
+
+
  full name
  address
  post-code
@@ -25,7 +27,7 @@ The program’s output is a report on the standard output showing pairs of poten
 entries of a pair should be written out in full, exactly as they appear in the mailing list file. For example:
 
 
-
+```
 Potential duplicate
 ===================
 Meldrew, Margaret
@@ -45,4 +47,5 @@ Sventek, Prof. Joseph
 University of Glasgow, Glasgow
 G12 8QQ
 3 Design
-You are provided with the source file for main(), and header files for two abstract data 
+
+```
